@@ -126,10 +126,11 @@ class SorteoView:
                 "color": 20,
                 "peso": 15,
                 "anillo": 25,
-                "placa": 25
+                "placa": 25,
+                "tipo": 25
             }
 
-            headers = ["Orden", "Frente", "Cuerda", "Ciudad", "Color", "Peso", "Anillo", "Placa", "# Jaula"]
+            headers = ["Orden", "Frente", "Cuerda", "Ciudad", "Color", "Peso", "Anillo", "Placa", "Tipo", "# Jaula"]
             pdf.set_font("Arial", "B", 8)
             for i, header in enumerate(headers):
                 pdf.cell(list(col_widths.values())[i], 6, header, border=1, align="C")
@@ -149,6 +150,7 @@ class SorteoView:
                 pdf.cell(col_widths["peso"], 5, str(g1.get("peso", "")), align="C")
                 pdf.cell(col_widths["anillo"], 5, g1.get("anillo", ""), align="C")
                 pdf.cell(col_widths["placa"], 5, g1.get("placa", ""), align="C")
+                pdf.cell(col_widths["tipo"], 5, g1.get("tipo", ""), align="C")
                 pdf.cell(col_widths["jaula"], 5, str(g1.get("numeroJaula", "")), align="C")
                 pdf.ln()
 
@@ -161,6 +163,7 @@ class SorteoView:
                 pdf.cell(col_widths["peso"], 5, str(g2.get("peso", "")), align="C")
                 pdf.cell(col_widths["anillo"], 5, g2.get("anillo", ""), align="C")
                 pdf.cell(col_widths["placa"], 5, g2.get("placa", ""), align="C")
+                pdf.cell(col_widths["tipo"], 5, g2.get("tipo", ""), align="C")
                 pdf.cell(col_widths["jaula"], 5, str(g2.get("numeroJaula", "")), align="C")
                 pdf.ln()
                 pdf.ln(1)
