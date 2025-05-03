@@ -1,0 +1,3 @@
+3,Sara,2,1223,8690,Colorado,3.1,Sogamoso,Gallo|1,Alacranes,1,123,432,Giro,3.2,Sogamoso,Gallo
+4,Sara,1,1234,675,Cenizo,3.2,Tunja,Pollo|2,Alacranes,2,789,849,Colorado,3.3,Tunja,Pollo
+5,Nathaly,2,667,789,Giro,3.4,Tunja,Pollo|7,Bayardo,1,648,9696,Colorado,3.6,Bogotá,Gallo
