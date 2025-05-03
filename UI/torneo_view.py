@@ -201,7 +201,8 @@ class TorneoView:
                 "ganador_frente": "Empate",
                 "perdedor_cuerda": "Empate",
                 "perdedor_frente": "Empate",
-                "tiempo": duracion_formateada
+                "tiempo": duracion_formateada,
+                "empate": True
             }
         else:
             ganador = self.gallo_rojo if colorGanador == "rojo" else self.gallo_azul
@@ -212,7 +213,8 @@ class TorneoView:
                 "ganador_frente": ganador["frente"],
                 "perdedor_cuerda": perdedor["cuerda"],
                 "perdedor_frente": perdedor["frente"],
-                "tiempo": duracion_formateada
+                "tiempo": duracion_formateada,
+                "empate": False
             }
 
         self.resultados_pelea.append(resultado)
@@ -329,7 +331,7 @@ class TorneoView:
             stats = self.estadisticas_por_frente[clave]
             stats["tiempo_total"] += tiempo
 
-            if resultado["ganador_frente"] == resultado["perdedor_frente"]:
+            if resultado.get("empate"):
                 stats["empatadas"] += 1
                 stats["puntos"] += 1
             elif rol == "ganador":
