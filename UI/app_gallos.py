@@ -4,6 +4,9 @@ from PIL import Image, ImageTk
 from db.gallos_db import GallosDB
 from UI.torneo_view import TorneoView 
 from UI.sorteo_view import SorteoView
+import pandas as pd
+from fpdf import FPDF
+
 
 
 class AppGallos:
@@ -227,12 +230,73 @@ class AppGallos:
 
 
     def generar_pdf(self):
-        # Lógica delegada a otro módulo utils/pdf_generator.py (a crear)
-        pass
+        cuerda_seleccionada = self.cuerda_combo.get()
+        print(cuerda_seleccionada)
+        if not cuerda_seleccionada:
+            return
+
+        self.db.cursor.execute("SELECT * FROM gallos WHERE cuerda=?", (cuerda_seleccionada,))
+        todos_los_gallos = self.db.cursor.fetchall()
+        if not todos_los_gallos:
+            return
+
+        # Agrupar los gallos por frente
+        gallos_por_frente = {}
+        for gallo in todos_los_gallos:
+            frente = gallo[2]  
+            if frente not in gallos_por_frente:
+                gallos_por_frente[frente] = []
+            gallos_por_frente[frente].append(gallo)
+
+        pdf = FPDF()
+        pdf.set_auto_page_break(auto=True, margin=15)
+        pdf.add_page()
+        pdf.set_font("Arial", "B", 16)
+        pdf.cell(200, 10, "PRIMER TORNEO ORGULLO PEÑONERO", ln=True, align="C")
+        pdf.set_font("Arial", "B", 12)
+        pdf.cell(200, 10, "Información de la Cuerda", ln=True, align="L")
+        pdf.cell(200, 10, f"Cuerda: {cuerda_seleccionada}", ln=True, align="L")
+
+        primer_frente = True
+        for frente, lista_gallos in sorted(gallos_por_frente.items()):
+            if not primer_frente:
+                pdf.add_page()
+                pdf.set_font("Arial", "B", 16)
+                pdf.cell(200, 10, "PRIMER TORNEO ORGULLO PEÑONERO", ln=True, align="C")
+                pdf.set_font("Arial", "B", 12)
+                pdf.cell(200, 10, "Información de la Cuerda", ln=True, align="L")
+                pdf.cell(200, 10, f"Cuerda: {cuerda_seleccionada}", ln=True, align="L")
+
+            pdf.ln(5)
+            pdf.set_font("Arial", "B", 12)
+            pdf.cell(200, 10, f"Frente: {frente}", ln=True, align="L")
+            pdf.ln(2)
+
+            pdf.set_font("Arial", "B", 10)
+            col_width = pdf.w / 4
+            pdf.cell(col_width, 8, "ANILLO", border=1, align="C")
+            pdf.cell(col_width, 8, "PLACA", border=1, align="C")
+            pdf.cell(col_width, 8, "COLOR", border=1, align="C")
+            pdf.cell(col_width, 8, "PESO", border=1, align="C")
+            pdf.ln()
+
+            pdf.set_font("Arial", size=10)
+            for gallo in lista_gallos:
+                pdf.cell(col_width, 8, str(gallo[3]), border=1, align="C")
+                pdf.cell(col_width, 8, str(gallo[4]), border=1, align="C")
+                pdf.cell(col_width, 8, gallo[5], border=1, align="C")
+                pdf.cell(col_width, 8, str(gallo[6]), border=1, align="C")
+                pdf.ln()
+            pdf.ln(5)
+            primer_frente = False
+        pdf.output(f"Torneo_{cuerda_seleccionada}.pdf")
+
 
     def exportar_excel(self):
-        # Lógica delegada a otro módulo utils/export_excel.py (a crear)
-        pass
+        self.db.cursor.execute("SELECT * FROM gallos")
+        datos = self.db.cursor.fetchall()
+        df = pd.DataFrame(datos, columns=["ID", "Cuerda", "Frente", "Anillo", "Placa", "Color", "Peso", "Ciudad","Tipo","numeroJaula"])
+        df.to_excel("Torneo_Gallos.xlsx", index=False)
 
     def realizar_sorteo(self):
         gallos = self.obtener_todos_los_gallos()
