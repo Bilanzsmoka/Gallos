@@ -53,7 +53,7 @@ class SorteoView:
         if self.peleas_automaticas:
             for g1, g2 in self.peleas_automaticas:
                 tk.Label(
-                    self.root, text=f"{g1['frente']} ({g1['cuerda']}) vs {g2['frente']} ({g2['cuerda']})").pack()
+                    self.root, text=f"Frente: {g1['frente']}, Cuerda: {g1['cuerda']}, Tipo: {g1['tipo']}, Peso: {g1['peso']}, Color: {g1['color']}, Anillo: {g1['anillo']}, Placa: {g1['placa']}, Ciudad: {g1['ciudad']}, # Jaula: {g1['numeroJaula']} vs Frente: {g2['frente']}, Cuerda: {g2['cuerda']}, Tipo: {g2['tipo']}, Peso: {g2['peso']}, Color: {g2['color']}, Anillo: {g2['anillo']}, Placa: {g2['placa']}, Ciudad: {g2['ciudad']}, # Jaula: {g2['numeroJaula']}").pack()
         else:
             tk.Label(
                 self.root, text="No se encontraron peleas automáticamente.").pack()
@@ -67,8 +67,8 @@ class SorteoView:
                 self.listbox.insert(
                     tk.END, f"Frente: {g['frente']}, Cuerda: {g['cuerda']}, Tipo: {g['tipo']}, Peso: {g['peso']}, Color: {g['color']}, Anillo: {g['anillo']}, Placa: {g['placa']}, Ciudad: {g['ciudad']}, # Jaula: {g['numeroJaula']}")
             self.listbox.pack(fill=tk.BOTH, expand=True)
-
-            tk.Button(self.root, text="Emparejar Manualmente",
+            
+            tk.Button(self.root, text="Emparejar Seleccionados",
                       command=self.emparejar_manual).pack(pady=5)
 
         tk.Button(self.root, text="Generar PDF",
@@ -126,10 +126,11 @@ class SorteoView:
                 "color": 20,
                 "peso": 15,
                 "anillo": 25,
-                "placa": 25
+                "placa": 25,
+                "tipo": 25
             }
 
-            headers = ["Orden", "Frente", "Cuerda", "Ciudad", "Color", "Peso", "Anillo", "Placa", "# Jaula"]
+            headers = ["Orden", "Frente", "Cuerda", "Ciudad", "Color", "Peso", "Anillo", "Placa", "Tipo", "# Jaula"]
             pdf.set_font("Arial", "B", 8)
             for i, header in enumerate(headers):
                 pdf.cell(list(col_widths.values())[i], 6, header, border=1, align="C")
@@ -149,6 +150,7 @@ class SorteoView:
                 pdf.cell(col_widths["peso"], 5, str(g1.get("peso", "")), align="C")
                 pdf.cell(col_widths["anillo"], 5, g1.get("anillo", ""), align="C")
                 pdf.cell(col_widths["placa"], 5, g1.get("placa", ""), align="C")
+                pdf.cell(col_widths["tipo"], 5, g1.get("tipo", ""), align="C")
                 pdf.cell(col_widths["jaula"], 5, str(g1.get("numeroJaula", "")), align="C")
                 pdf.ln()
 
@@ -161,6 +163,7 @@ class SorteoView:
                 pdf.cell(col_widths["peso"], 5, str(g2.get("peso", "")), align="C")
                 pdf.cell(col_widths["anillo"], 5, g2.get("anillo", ""), align="C")
                 pdf.cell(col_widths["placa"], 5, g2.get("placa", ""), align="C")
+                pdf.cell(col_widths["tipo"], 5, g2.get("tipo", ""), align="C")
                 pdf.cell(col_widths["jaula"], 5, str(g2.get("numeroJaula", "")), align="C")
                 pdf.ln()
                 pdf.ln(1)
