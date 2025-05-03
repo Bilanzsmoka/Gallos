@@ -4,6 +4,8 @@ from PIL import Image, ImageTk
 from db.gallos_db import GallosDB
 from UI.torneo_view import TorneoView 
 from UI.sorteo_view import SorteoView
+import pandas as pd
+
 
 
 class AppGallos:
@@ -231,8 +233,10 @@ class AppGallos:
         pass
 
     def exportar_excel(self):
-        # Lógica delegada a otro módulo utils/export_excel.py (a crear)
-        pass
+        self.db.cursor.execute("SELECT * FROM gallos")
+        datos = self.db.cursor.fetchall()
+        df = pd.DataFrame(datos, columns=["ID", "Cuerda", "Frente", "Anillo", "Placa", "Color", "Peso", "Ciudad","Tipo","numeroJaula"])
+        df.to_excel("Torneo_Gallos.xlsx", index=False)
 
     def realizar_sorteo(self):
         gallos = self.obtener_todos_los_gallos()
