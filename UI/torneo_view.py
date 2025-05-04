@@ -196,11 +196,13 @@ class TorneoView:
         duracion_formateada = f"{minutos}:{segundos:02d}"
 
         if esEmpate:
+            gallo1 = self.gallo_rojo
+            gallo2 = self.gallo_azul
             resultado = {
-                "ganador_cuerda": "Empate",
-                "ganador_frente": "Empate",
-                "perdedor_cuerda": "Empate",
-                "perdedor_frente": "Empate",
+                "gallo1_cuerda": gallo1["cuerda"],
+                "gallo1_frente": gallo1["frente"],
+                "gallo2_cuerda": gallo2["cuerda"],
+                "gallo2_frente": gallo2["frente"],
                 "tiempo": duracion_formateada,
                 "empate": True
             }
@@ -220,9 +222,14 @@ class TorneoView:
         self.resultados_pelea.append(resultado)
         self.actualizar_estadisticas(resultado)
 
-        self.resultado_pelea_label.config(
-            text=f"Resultado de la Pelea: Ganador - Frente: {resultado['ganador_frente']}, Cuerda: {resultado['ganador_cuerda']} | Perdedor - Frente: {resultado['perdedor_frente']}, Cuerda: {resultado['perdedor_cuerda']} | Tiempo - {resultado['tiempo']}"
-        )
+        if resultado["empate"]:
+            self.resultado_pelea_label.config(
+                text=f"Empate entre: Frente {resultado['gallo1_frente']} (Cuerda {resultado['gallo1_cuerda']}) y Frente {resultado['gallo2_frente']} (Cuerda {resultado['gallo2_cuerda']}) | Tiempo - {resultado['tiempo']}"
+            )
+        else:
+            self.resultado_pelea_label.config(
+                text=f"Ganador - Frente: {resultado['ganador_frente']}, Cuerda: {resultado['ganador_cuerda']} | Perdedor - Frente: {resultado['perdedor_frente']}, Cuerda: {resultado['perdedor_cuerda']} | Tiempo - {resultado['tiempo']}"
+            )
 
         self.tiempo_total = 0
         self.reloj_label.config(text="0:00")
@@ -236,35 +243,77 @@ class TorneoView:
     def mostrar_resultados(self):
         ventana_resultados = tk.Toplevel(self.root)
         ventana_resultados.title("Resultados de la Pelea")
-        ventana_resultados.geometry("400x300")
+        ventana_resultados.geometry("650x350")
 
-        columnas = ["Ganador Cuerda", "Ganador Frente",
-                    "Perdedor Cuerda", "Perdedor Frente", "Duración"]
+        columnas = ["Resultado", "Cuerda 1", "Frente 1", "Cuerda 2", "Frente 2", "Duración"]
         tabla_resultados = ttk.Treeview(
             ventana_resultados, columns=columnas, show="headings")
         for col in columnas:
             tabla_resultados.heading(col, text=col)
-            tabla_resultados.column(col, width=100)
+            tabla_resultados.column(col, width=90, anchor="center")
         tabla_resultados.pack(fill=tk.BOTH, expand=True)
-        for resultado in self.resultados_pelea:
-            ganador_cuerda = resultado.get(
-                "ganador_cuerda", resultado.get("ganador", ""))
-            ganador_frente = resultado.get(
-                "ganador_frente", resultado.get("ganador", ""))
-            perdedor_cuerda = resultado.get(
-                "perdedor_cuerda", resultado.get("perdedor", ""))
-            perdedor_frente = resultado.get(
-                "perdedor_frente", resultado.get("perdedor", ""))
-            duracion = resultado.get("tiempo", "")
 
-            tabla_resultados.insert("", "end", values=(
-                ganador_cuerda, ganador_frente,
-                perdedor_cuerda, perdedor_frente,
-                duracion
-            ))
+        for resultado in self.resultados_pelea:
+            duracion = resultado.get("tiempo", "")
+            if resultado.get("empate"):
+                tabla_resultados.insert("", "end", values=(
+                    "Empate",
+                    resultado.get("gallo1_cuerda", ""),
+                    resultado.get("gallo1_frente", ""),
+                    resultado.get("gallo2_cuerda", ""),
+                    resultado.get("gallo2_frente", ""),
+                    duracion,
+                ))
+            else:
+                ganador_texto = f"Ganador {resultado.get('ganador_cuerda', '')} - {resultado.get('ganador_frente', '')}"
+                tabla_resultados.insert("", "end", values=(
+                    ganador_texto,
+                    resultado.get("ganador_cuerda", ""),
+                    resultado.get("ganador_frente", ""),
+                    resultado.get("perdedor_cuerda", ""),
+                    resultado.get("perdedor_frente", ""),
+                    duracion,
+                ))
 
         tk.Button(ventana_resultados, text="Cerrar",
-                  command=ventana_resultados.destroy).pack(pady=10)
+                command=ventana_resultados.destroy).pack(pady=10)
+
+        ventana_resultados = tk.Toplevel(self.root)
+        ventana_resultados.title("Resultados de la Pelea")
+        ventana_resultados.geometry("550x350")
+
+        columnas = ["Resultado", "Cuerda 1", "Frente 1", "Cuerda 2", "Frente 2", "Duración"]
+        tabla_resultados = ttk.Treeview(
+            ventana_resultados, columns=columnas, show="headings")
+        for col in columnas:
+            tabla_resultados.heading(col, text=col)
+            tabla_resultados.column(col, width=90, anchor="center")
+        tabla_resultados.pack(fill=tk.BOTH, expand=True)
+
+        for resultado in self.resultados_pelea:
+            duracion = resultado.get("tiempo", "")
+            if resultado.get("empate"):
+                tabla_resultados.insert("", "end", values=(
+                    "Empate",
+                    resultado.get("gallo1_cuerda", ""),
+                    resultado.get("gallo1_frente", ""),
+                    resultado.get("gallo2_cuerda", ""),
+                    resultado.get("gallo2_frente", ""),
+                    duracion
+                ))
+            else:
+                tabla_resultados.insert("", "end", values=(
+                    "Ganador",
+                    resultado.get("ganador_cuerda", ""),
+                    resultado.get("ganador_frente", ""),
+                    resultado.get("perdedor_cuerda", ""),
+                    resultado.get("perdedor_frente", ""),
+                    duracion
+                ))
+
+        tk.Button(ventana_resultados, text="Cerrar",
+                command=ventana_resultados.destroy).pack(pady=10)
+
 
     def cargar_lista_de_peleas(self):
         try:
@@ -315,30 +364,49 @@ class TorneoView:
 
 
     def actualizar_estadisticas(self, resultado):
-        for rol in ["ganador", "perdedor"]:
-            clave = (resultado[f"{rol}_cuerda"], resultado[f"{rol}_frente"])
-            tiempo = self.tiempo_total
+        tiempo = self.tiempo_total
 
-            if clave not in self.estadisticas_por_frente:
-                self.estadisticas_por_frente[clave] = {
-                    "puntos": 0,
-                    "ganadas": 0,
-                    "empatadas": 0,
-                    "perdidas": 0,
-                    "tiempo_total": 0
-                }
+        if resultado.get("empate"):
+            # Empate: sumar a ambos gallos 1 punto y 1 empate
+            for rol in [("gallo1_cuerda", "gallo1_frente"), ("gallo2_cuerda", "gallo2_frente")]:
+                clave = (resultado[rol[0]], resultado[rol[1]])
 
-            stats = self.estadisticas_por_frente[clave]
-            stats["tiempo_total"] += tiempo
+                if clave not in self.estadisticas_por_frente:
+                    self.estadisticas_por_frente[clave] = {
+                        "puntos": 0,
+                        "ganadas": 0,
+                        "empatadas": 0,
+                        "perdidas": 0,
+                        "tiempo_total": 0
+                    }
 
-            if resultado.get("empate"):
+                stats = self.estadisticas_por_frente[clave]
                 stats["empatadas"] += 1
                 stats["puntos"] += 1
-            elif rol == "ganador":
-                stats["ganadas"] += 1
-                stats["puntos"] += 2  # ✅ correcto
-            else:
-                stats["perdidas"] += 1  # no se suman puntos
+                stats["tiempo_total"] += tiempo
+        else:
+            # Hay ganador y perdedor
+            for rol in ["ganador", "perdedor"]:
+                clave = (resultado[f"{rol}_cuerda"], resultado[f"{rol}_frente"])
+
+                if clave not in self.estadisticas_por_frente:
+                    self.estadisticas_por_frente[clave] = {
+                        "puntos": 0,
+                        "ganadas": 0,
+                        "empatadas": 0,
+                        "perdidas": 0,
+                        "tiempo_total": 0
+                    }
+
+                stats = self.estadisticas_por_frente[clave]
+                stats["tiempo_total"] += tiempo
+
+                if rol == "ganador":
+                    stats["ganadas"] += 1
+                    stats["puntos"] += 2
+                else:
+                    stats["perdidas"] += 1
+
 
     def mostrar_posiciones_acumuladas(self):
         ventana = tk.Toplevel(self.root)
