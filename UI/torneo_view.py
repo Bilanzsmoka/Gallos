@@ -278,41 +278,6 @@ class TorneoView:
         tk.Button(ventana_resultados, text="Cerrar",
                 command=ventana_resultados.destroy).pack(pady=10)
 
-        ventana_resultados = tk.Toplevel(self.root)
-        ventana_resultados.title("Resultados de la Pelea")
-        ventana_resultados.geometry("550x350")
-
-        columnas = ["Resultado", "Cuerda 1", "Frente 1", "Cuerda 2", "Frente 2", "Duración"]
-        tabla_resultados = ttk.Treeview(
-            ventana_resultados, columns=columnas, show="headings")
-        for col in columnas:
-            tabla_resultados.heading(col, text=col)
-            tabla_resultados.column(col, width=90, anchor="center")
-        tabla_resultados.pack(fill=tk.BOTH, expand=True)
-
-        for resultado in self.resultados_pelea:
-            duracion = resultado.get("tiempo", "")
-            if resultado.get("empate"):
-                tabla_resultados.insert("", "end", values=(
-                    "Empate",
-                    resultado.get("gallo1_cuerda", ""),
-                    resultado.get("gallo1_frente", ""),
-                    resultado.get("gallo2_cuerda", ""),
-                    resultado.get("gallo2_frente", ""),
-                    duracion
-                ))
-            else:
-                tabla_resultados.insert("", "end", values=(
-                    "Ganador",
-                    resultado.get("ganador_cuerda", ""),
-                    resultado.get("ganador_frente", ""),
-                    resultado.get("perdedor_cuerda", ""),
-                    resultado.get("perdedor_frente", ""),
-                    duracion
-                ))
-
-        tk.Button(ventana_resultados, text="Cerrar",
-                command=ventana_resultados.destroy).pack(pady=10)
 
 
     def cargar_lista_de_peleas(self):
