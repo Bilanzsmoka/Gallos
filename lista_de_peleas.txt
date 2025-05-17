@@ -1,2 +1,4 @@
-1,2,2,3,4,5,6.0,7,Gallo|2,1,2,3,4,5,6.0,7,Gallo
-3,12321,2372819,32131,3213,32131,32131.0,32131,Pollo|4,32131,31231,32131,321321,321321,321321.0,321312,Gallo
+1,Alacranes,2,1,2,giro,3.0,sogamoso,Gallo|3,Sara,1,3,4,cenizo,3.1,tunja,Gallo
+2,Alacranes,2,2,3,colorado,3.2,sogamoso,Pollo|4,Sara,1,5,6,javado,3.3,tunja,Pollo
+6,Alacranes,1,88,99,canaguai,3.8,bogota,Gallo|8,Nathaly,1,21,34,giro,3.9,Duitama,Gallo
+5,Alacranes,1,76,98,colorado,3.4,bogota,Gallo|7,Nathaly,1,826,563,giro,3.6,Duitama,Pollo
