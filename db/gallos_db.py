@@ -21,6 +21,7 @@ class GallosDB:
                 numeroJaula TEXT
             )
         ''')
+        
         self.conn.commit()
 
     def create_gallo(self, *datos):
