@@ -1,4 +1,50 @@
-1,Alacranes,2,1,2,giro,3.0,sogamoso,Gallo|3,Sara,1,3,4,cenizo,3.1,tunja,Gallo
-2,Alacranes,2,2,3,colorado,3.2,sogamoso,Pollo|4,Sara,1,5,6,javado,3.3,tunja,Pollo
-6,Alacranes,1,88,99,canaguai,3.8,bogota,Gallo|8,Nathaly,1,21,34,giro,3.9,Duitama,Gallo
-5,Alacranes,1,76,98,colorado,3.4,bogota,Gallo|7,Nathaly,1,826,563,giro,3.6,Duitama,Pollo
+1,Los Valientes,2,A001,P001,giro,3.01,Tunja,Pollo|3,Guerreros del Sur,2,A003,P003,canaguai,3.03,Sogamoso,Pollo
+2,Peñoneros,1,A002,P002,cenizo,3.02,Duitama,Gallo|4,Peñoneros,1,A004,P004,colorado,3.04,Bogotá,Gallo
+5,El Reinado,2,A005,P005,rojo,3.05,Tunja,Pollo|7,Guerreros del Sur,2,A007,P007,cenizo,3.07,Sogamoso,Pollo
+6,Los Titanes,1,A006,P006,giro,3.06,Duitama,Gallo|8,El Reinado,1,A008,P008,canaguai,3.08,Bogotá,Gallo
+9,Nathaly,2,A009,P009,colorado,3.09,Tunja,Pollo|11,Los Valientes,2,A011,P011,giro,3.11,Sogamoso,Pollo
+10,Peñoneros,1,A010,P010,rojo,3.1,Duitama,Gallo|12,Orgullo Llanero,1,A012,P012,cenizo,3.12,Bogotá,Gallo
+13,Raza Brava,2,A013,P013,canaguai,3.13,Tunja,Pollo|15,Los Titanes,2,A015,P015,rojo,3.15,Sogamoso,Pollo
+14,Orgullo Llanero,1,A014,P014,colorado,3.14,Duitama,Gallo|16,Guerreros del Sur,1,A016,P016,giro,3.16,Bogotá,Gallo
+17,Los Valientes,2,A017,P017,cenizo,3.17,Tunja,Pollo|19,Nathaly,2,A019,P019,colorado,3.19,Sogamoso,Pollo
+18,Furia del Norte,1,A018,P018,canaguai,3.18,Duitama,Gallo|20,Orgullo Llanero,1,A020,P020,rojo,3.2,Bogotá,Gallo
+21,Nathaly,2,A021,P021,giro,3.21,Tunja,Pollo|23,Los Valientes,2,A023,P023,canaguai,3.23,Sogamoso,Pollo
+22,Guerreros del Sur,1,A022,P022,cenizo,3.22,Duitama,Gallo|24,Raza Brava,1,A024,P024,colorado,3.24,Bogotá,Gallo
+25,Peñoneros,2,A025,P025,rojo,3.25,Tunja,Pollo|27,Casta Fina,2,A027,P027,cenizo,3.27,Sogamoso,Pollo
+26,El Reinado,1,A026,P026,giro,3.26,Duitama,Gallo|28,Guerreros del Sur,1,A028,P028,canaguai,3.28,Bogotá,Gallo
+29,Nathaly,2,A029,P029,colorado,3.29,Tunja,Pollo|31,Casta Fina,2,A031,P031,giro,3.31,Sogamoso,Pollo
+30,Casta Fina,1,A030,P030,rojo,3.3,Duitama,Gallo|32,Casta Fina,1,A032,P032,cenizo,3.32,Bogotá,Gallo
+33,Furia del Norte,2,A033,P033,canaguai,3.33,Tunja,Pollo|35,Guerreros del Sur,2,A035,P035,rojo,3.35,Sogamoso,Pollo
+34,Orgullo Llanero,1,A034,P034,colorado,3.34,Duitama,Gallo|36,Guerreros del Sur,1,A036,P036,giro,3.36,Bogotá,Gallo
+37,Los Valientes,2,A037,P037,cenizo,3.37,Tunja,Pollo|39,Peñoneros,2,A039,P039,colorado,3.39,Sogamoso,Pollo
+38,Raza Brava,1,A038,P038,canaguai,3.38,Duitama,Gallo|40,Nathaly,1,A040,P040,rojo,3.4,Bogotá,Gallo
+41,Casta Fina,2,A041,P041,giro,3.41,Tunja,Pollo|43,Peñoneros,2,A043,P043,canaguai,3.43,Sogamoso,Pollo
+42,Orgullo Llanero,1,A042,P042,cenizo,3.42,Duitama,Gallo|44,Orgullo Llanero,1,A044,P044,colorado,3.44,Bogotá,Gallo
+45,Los Valientes,2,A045,P045,rojo,3.45,Tunja,Pollo|47,Furia del Norte,2,A047,P047,cenizo,3.47,Sogamoso,Pollo
+46,Los Titanes,1,A046,P046,giro,3.46,Duitama,Gallo|48,Casta Fina,1,A048,P048,canaguai,3.48,Bogotá,Gallo
+49,Los Titanes,2,A049,P049,colorado,3.49,Tunja,Pollo|51,El Reinado,2,A051,P051,giro,3.51,Sogamoso,Pollo
+50,Furia del Norte,1,A050,P050,rojo,3.5,Duitama,Gallo|52,Furia del Norte,1,A052,P052,cenizo,3.52,Bogotá,Gallo
+53,Casta Fina,2,A053,P053,canaguai,3.53,Tunja,Pollo|55,El Reinado,2,A055,P055,rojo,3.55,Sogamoso,Pollo
+54,Los Titanes,1,A054,P054,colorado,3.54,Duitama,Gallo|56,Raza Brava,1,A056,P056,giro,3.56,Bogotá,Gallo
+57,Raza Brava,2,A057,P057,cenizo,3.57,Tunja,Pollo|59,Los Titanes,2,A059,P059,colorado,3.59,Sogamoso,Pollo
+58,Raza Brava,1,A058,P058,canaguai,3.58,Duitama,Gallo|60,Los Titanes,1,A060,P060,rojo,3.6,Bogotá,Gallo
+61,Guerreros del Sur,2,A061,P061,giro,3.61,Tunja,Pollo|63,Casta Fina,2,A063,P063,canaguai,3.63,Sogamoso,Pollo
+62,Furia del Norte,1,A062,P062,cenizo,3.62,Duitama,Gallo|64,Los Valientes,1,A064,P064,colorado,3.64,Bogotá,Gallo
+65,Casta Fina,2,A065,P065,rojo,3.65,Tunja,Pollo|67,Peñoneros,2,A067,P067,cenizo,3.67,Sogamoso,Pollo
+66,Nathaly,1,A066,P066,giro,3.66,Duitama,Gallo|68,Casta Fina,1,A068,P068,canaguai,3.68,Bogotá,Gallo
+69,Raza Brava,2,A069,P069,colorado,3.69,Tunja,Pollo|71,Guerreros del Sur,2,A071,P071,giro,3.71,Sogamoso,Pollo
+70,Nathaly,1,A070,P070,rojo,3.7,Duitama,Gallo|72,Los Titanes,1,A072,P072,cenizo,3.72,Bogotá,Gallo
+73,Orgullo Llanero,2,A073,P073,canaguai,3.73,Tunja,Pollo|75,Orgullo Llanero,2,A075,P075,rojo,3.75,Sogamoso,Pollo
+74,Casta Fina,1,A074,P074,colorado,3.74,Duitama,Gallo|76,Casta Fina,1,A076,P076,giro,3.76,Bogotá,Gallo
+77,Peñoneros,2,A077,P077,cenizo,3.77,Tunja,Pollo|79,Peñoneros,2,A079,P079,colorado,3.79,Sogamoso,Pollo
+78,Raza Brava,1,A078,P078,canaguai,3.78,Duitama,Gallo|80,Nathaly,1,A080,P080,rojo,3.8,Bogotá,Gallo
+81,Orgullo Llanero,2,A081,P081,giro,3.81,Tunja,Pollo|83,Raza Brava,2,A083,P083,canaguai,3.83,Sogamoso,Pollo
+82,Los Valientes,1,A082,P082,cenizo,3.82,Duitama,Gallo|84,Los Valientes,1,A084,P084,colorado,3.84,Bogotá,Gallo
+85,Furia del Norte,2,A085,P085,rojo,3.85,Tunja,Pollo|87,Furia del Norte,2,A087,P087,cenizo,3.87,Sogamoso,Pollo
+86,Casta Fina,1,A086,P086,giro,3.86,Duitama,Gallo|88,Nathaly,1,A088,P088,canaguai,3.88,Bogotá,Gallo
+89,Guerreros del Sur,2,A089,P089,colorado,3.89,Tunja,Pollo|91,Peñoneros,2,A091,P091,giro,3.91,Sogamoso,Pollo
+90,Orgullo Llanero,1,A090,P090,rojo,3.9,Duitama,Gallo|92,Los Valientes,1,A092,P092,cenizo,3.92,Bogotá,Gallo
+93,El Reinado,2,A093,P093,canaguai,3.93,Tunja,Pollo|95,Los Valientes,2,A095,P095,rojo,3.95,Sogamoso,Pollo
+94,Furia del Norte,1,A094,P094,colorado,3.94,Duitama,Gallo|96,Los Valientes,1,A096,P096,giro,3.96,Bogotá,Gallo
+97,Orgullo Llanero,2,A097,P097,cenizo,3.97,Tunja,Pollo|99,Peñoneros,2,A099,P099,colorado,3.99,Sogamoso,Pollo
+98,Casta Fina,1,A098,P098,canaguai,3.98,Duitama,Gallo|100,Furia del Norte,1,A100,P100,rojo,4.0,Bogotá,Gallo

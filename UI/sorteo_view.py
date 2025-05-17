@@ -23,7 +23,7 @@ class SorteoView:
         gallos = [
             {
                 'id': g['id'], 'cuerda': g['cuerda'], 'frente': g['frente'], 'anillo': g['anillo'],
-                'placa': g['placa'], 'color': g['color'], 'peso_int': int(g['peso'] * 10),
+                'placa': g['placa'], 'color': g['color'], 'peso_int': [float(g['peso']) if g['peso'] else 0],
                 'peso': g['peso'], 'ciudad': g['ciudad'], 'tipo': g['tipo'],'numeroJaula': g['numeroJaula'],
             } for g in self.gallos_detalles
         ]
@@ -39,7 +39,8 @@ class SorteoView:
                 for j in range(i + 1, len(gallos)):
                     if not usados[j]:
                         g2 = gallos[j]
-                        if g1['tipo'] == g2['tipo'] and abs(g1['peso_int'] - g2['peso_int']) <= 1:
+                        if g1['tipo'] == g2['tipo'] and abs(float(g1['peso_int'][0]) - float(g2['peso_int'][0])) <= 1:
+
                             self.peleas_automaticas.append((g1, g2))
                             usados[j] = True
                             match = True
@@ -170,7 +171,7 @@ class SorteoView:
                 pdf.cell(col_widths["cuerda"], 5, g1.get("cuerda", ""), align="C")
                 pdf.cell(col_widths["ciudad"], 5, g1.get("ciudad", ""), align="C")
                 pdf.cell(col_widths["color"], 5, g1.get("color", ""), align="C")
-                pdf.cell(col_widths["peso"], 5, str(g1.get("peso", "")), align="C")
+                pdf.cell(col_widths["peso"], 5, f"{float(g1.get('peso', 0)):.2f}", align="C")
                 pdf.cell(col_widths["anillo"], 5, g1.get("anillo", ""), align="C")
                 pdf.cell(col_widths["placa"], 5, g1.get("placa", ""), align="C")
                 pdf.cell(col_widths["tipo"], 5, g1.get("tipo", ""), align="C")
@@ -183,7 +184,7 @@ class SorteoView:
                 pdf.cell(col_widths["cuerda"], 5, g2.get("cuerda", ""), align="C")
                 pdf.cell(col_widths["ciudad"], 5, g2.get("ciudad", ""), align="C")
                 pdf.cell(col_widths["color"], 5, g2.get("color", ""), align="C")
-                pdf.cell(col_widths["peso"], 5, str(g2.get("peso", "")), align="C")
+                pdf.cell(col_widths["peso"], 5, f"{float(g2.get('peso', 0)):.2f}", align="C")
                 pdf.cell(col_widths["anillo"], 5, g2.get("anillo", ""), align="C")
                 pdf.cell(col_widths["placa"], 5, g2.get("placa", ""), align="C")
                 pdf.cell(col_widths["tipo"], 5, g2.get("tipo", ""), align="C")
