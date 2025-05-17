@@ -39,7 +39,11 @@ class SorteoView:
                 for j in range(i + 1, len(gallos)):
                     if not usados[j]:
                         g2 = gallos[j]
-                        if g1['tipo'] == g2['tipo'] and abs(float(g1['peso_int'][0]) - float(g2['peso_int'][0])) <= 1:
+                        if (
+                            g1['tipo'] == g2['tipo'] and
+                            g1['cuerda'] != g2['cuerda'] and
+                            abs(float(g1['peso_int'][0]) - float(g2['peso_int'][0])) <= 1
+                        ):
 
                             self.peleas_automaticas.append((g1, g2))
                             usados[j] = True
@@ -106,6 +110,9 @@ class SorteoView:
             return
         g1 = self.sin_emparejar[sel[0]]
         g2 = self.sin_emparejar[sel[1]]
+        if g1['cuerda'] == g2['cuerda']:
+            messagebox.showwarning("Emparejamiento inválido", "No puedes emparejar gallos de la misma cuerda.")
+            return
         self.peleas_manuales.append((g1, g2))
         messagebox.showinfo(
             "Emparejamiento", f"{g1['frente']} ({g1['cuerda']}) vs {g2['frente']} ({g2['cuerda']})")
