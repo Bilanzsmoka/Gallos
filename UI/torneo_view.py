@@ -114,6 +114,10 @@ class TorneoView:
             self.root, text="Siguiente Pelea", command=self.cargar_siguiente_pelea, font=("Arial", 16), state=tk.DISABLED)
         self.boton_siguiente_pelea.pack(pady=10)
 
+        self.boton_generar_pdf = tk.Button(
+            self.root, text="Generar PDF", command=self.generar_pdf_posiciones)
+        self.boton_generar_pdf.pack(pady=5)
+
         self.frame_tabla_posiciones = tk.Frame(self.root)
         self.frame_tabla_posiciones.pack(pady=10, fill=tk.BOTH, expand=True)
 
@@ -128,9 +132,6 @@ class TorneoView:
 
         self.tabla_acumulada.pack(fill=tk.BOTH, expand=True)
 
-        self.boton_generar_pdf = tk.Button(
-            self.frame_tabla_posiciones, text="Generar PDF", command=self.generar_pdf_posiciones)
-        self.boton_generar_pdf.pack(pady=5)
 
     def iniciar_reloj(self):
         self.corriendo = True
@@ -348,6 +349,7 @@ class TorneoView:
         else:
             self.boton_siguiente_pelea.config(
                 state=tk.DISABLED, text="Fin de las Peleas")
+            
             
 
     def actualizar_estadisticas(self, resultado):
