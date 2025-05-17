@@ -145,6 +145,10 @@ class TorneoView:
 
     def actualizar_reloj(self):
         if self.corriendo:
+            if self.tiempo_total >= 480:  # 8 minutos en segundos
+                self.detener_reloj()
+                messagebox.showinfo("Tiempo finalizado", "Se han cumplido los 8 minutos.")
+                return
             minutos = self.tiempo_total // 60
             segundos = self.tiempo_total % 60
             self.reloj_label.config(text=f"{minutos}:{segundos:02d}")
