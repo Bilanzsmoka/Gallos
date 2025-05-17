@@ -259,7 +259,7 @@ def generar_pdf_sorteo(peleas_automaticas, peleas_manuales):
 
     # Título
     pdf.set_font("Arial", "B", 16)
-    pdf.cell(200, 10, "RESULTADO DEL SORTEO", ln=True, align="C")
+    pdf.cell(200, 10, "RESULTADO PELEAS ORDENADAS 1ER TORNEO  ORGULLO PEÑONERO", ln=True, align="C")
 
     # Logo debajo del título 
     try:
