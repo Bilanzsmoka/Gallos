@@ -107,8 +107,17 @@ class AppGallos:
     def actualizar_tabla(self):
         for row in self.tabla.get_children():
             self.tabla.delete(row)
+        
         self.db.cursor.execute("SELECT * FROM gallos")
         for row in self.db.cursor.fetchall():
+            row = list(row)  # Convierte de tupla a lista si no lo es
+
+            # Supongamos que el índice 5 es el campo 'peso'
+            try:
+                row[6] = "{:.2f}".format(float(row[6]))
+            except (ValueError, IndexError):
+                pass  # en caso de que no se pueda formatear
+
             self.tabla.insert("", "end", values=row)
 
     def actualizar_lista_cuerdas(self):
@@ -273,7 +282,8 @@ class AppGallos:
             pdf.ln(2)
 
             pdf.set_font("Arial", "B", 10)
-            col_width = pdf.w / 4
+            usable_width = pdf.w - 2 * pdf.l_margin  # 210 mm - márgenes (~15 mm c/u)
+            col_width = usable_width / 4
             pdf.cell(col_width, 8, "ANILLO", border=1, align="C")
             pdf.cell(col_width, 8, "PLACA", border=1, align="C")
             pdf.cell(col_width, 8, "COLOR", border=1, align="C")

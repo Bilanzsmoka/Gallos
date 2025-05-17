@@ -15,12 +15,13 @@ class GallosDB:
                 anillo TEXT,
                 placa TEXT,
                 color TEXT,
-                peso REAL,
+                peso TEXT,
                 ciudad TEXT,
                 tipo TEXT,
                 numeroJaula TEXT
             )
         ''')
+        
         self.conn.commit()
 
     def create_gallo(self, *datos):

@@ -114,6 +114,24 @@ class TorneoView:
             self.root, text="Siguiente Pelea", command=self.cargar_siguiente_pelea, font=("Arial", 16), state=tk.DISABLED)
         self.boton_siguiente_pelea.pack(pady=10)
 
+        self.frame_tabla_posiciones = tk.Frame(self.root)
+        self.frame_tabla_posiciones.pack(pady=10, fill=tk.BOTH, expand=True)
+
+        tk.Label(self.frame_tabla_posiciones, text="Tabla Acumulada del Torneo",
+                font=("Arial", 12, "bold")).pack()
+
+        columnas = ["Puesto", "Cuerda", "Frente", "Puntos", "Ganadas", "Empatadas", "Perdidas", "Tiempo Total"]
+        self.tabla_acumulada = ttk.Treeview(self.frame_tabla_posiciones, columns=columnas, show="headings")
+        for col in columnas:
+            self.tabla_acumulada.heading(col, text=col)
+            self.tabla_acumulada.column(col, width=100)
+
+        self.tabla_acumulada.pack(fill=tk.BOTH, expand=True)
+
+        self.boton_generar_pdf = tk.Button(
+            self.frame_tabla_posiciones, text="Generar PDF", command=self.generar_pdf_posiciones)
+        self.boton_generar_pdf.pack(pady=5)
+
     def iniciar_reloj(self):
         self.corriendo = True
         self.actualizar_reloj()
@@ -221,6 +239,7 @@ class TorneoView:
 
         self.resultados_pelea.append(resultado)
         self.actualizar_estadisticas(resultado)
+        self.actualizar_tabla_posiciones()
 
         if resultado["empate"]:
             self.resultado_pelea_label.config(
@@ -325,8 +344,7 @@ class TorneoView:
         else:
             self.boton_siguiente_pelea.config(
                 state=tk.DISABLED, text="Fin de las Peleas")
-            self.mostrar_posiciones_acumuladas()
-
+            
 
     def actualizar_estadisticas(self, resultado):
         tiempo = self.tiempo_total
@@ -372,31 +390,18 @@ class TorneoView:
                 else:
                     stats["perdidas"] += 1
 
+    def actualizar_tabla_posiciones(self):
+        for row in self.tabla_acumulada.get_children():
+            self.tabla_acumulada.delete(row)
 
-    def mostrar_posiciones_acumuladas(self):
-        ventana = tk.Toplevel(self.root)
-        ventana.title("Tabla Acumulada del Torneo")
-
-        columnas = ["Puesto", "Cuerda", "Frente", "Puntos",
-                    "Ganadas", "Empatadas", "Perdidas", "Tiempo Total"]
-        tabla = ttk.Treeview(ventana, columns=columnas, show="headings")
-        for col in columnas:
-            tabla.heading(col, text=col)
-            tabla.column(col, width=100)
-        tabla.pack(fill=tk.BOTH, expand=True)
-
-        ordenados = sorted(self.estadisticas_por_frente.items(),
-                           key=lambda x: x[1]["puntos"], reverse=True)
+        ordenados = sorted(self.estadisticas_por_frente.items(), key=lambda x: x[1]["puntos"], reverse=True)
 
         for i, ((cuerda, frente), stats) in enumerate(ordenados, start=1):
             tiempo_str = f"{stats['tiempo_total'] // 60}:{stats['tiempo_total'] % 60:02d}"
-            tabla.insert("", "end", values=(
+            self.tabla_acumulada.insert("", "end", values=(
                 i, cuerda, frente, stats["puntos"], stats["ganadas"],
                 stats["empatadas"], stats["perdidas"], tiempo_str
             ))
-
-        tk.Button(ventana, text="Generar PDF",
-                  command=self.generar_pdf_posiciones).pack(pady=10)
 
     def generar_pdf_posiciones(self):
         pdf = FPDF(orientation='P', unit='mm', format='A4')
