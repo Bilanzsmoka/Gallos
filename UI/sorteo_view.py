@@ -42,7 +42,7 @@ class SorteoView:
                         if (
                             g1['tipo'] == g2['tipo'] and
                             g1['cuerda'] != g2['cuerda'] and
-                            abs(float(g1['peso_int'][0]) - float(g2['peso_int'][0])) <= 1
+                            abs(float(g1['peso_int'][0]) - float(g2['peso_int'][0])) <= 0.01
                         ):
 
                             self.peleas_automaticas.append((g1, g2))
@@ -89,12 +89,18 @@ class SorteoView:
                 font=("Arial", 12, "bold")).pack(pady=5)
 
         if self.sin_emparejar:
-            self.listbox = tk.Listbox(scroll_frame, selectmode=tk.MULTIPLE, height=6)
+            self.listbox = tk.Listbox(
+                scroll_frame,
+                selectmode=tk.MULTIPLE,
+                height=12,  # más alto
+                font=("Arial", 11),  # fuente más grande
+                width=150  # más ancho si lo deseas
+            )
             for g in self.sin_emparejar:
                 self.listbox.insert(
                     tk.END, f"Frente: {g['frente']}, Cuerda: {g['cuerda']}, Tipo: {g['tipo']}, Peso: {g['peso']}, Color: {g['color']}, Anillo: {g['anillo']}, Placa: {g['placa']}, Ciudad: {g['ciudad']}, # Jaula: {g['numeroJaula']}"
                 )
-            self.listbox.pack(fill=tk.BOTH, expand=True)
+            self.listbox.pack(fill=tk.BOTH, expand=True,)
 
             tk.Button(scroll_frame, text="Emparejar Seleccionados",
                     command=self.emparejar_manual).pack(pady=5)
