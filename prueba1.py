@@ -6,6 +6,7 @@ from fpdf import FPDF
 import pandas as pd
 import random
 from tkinter import messagebox
+from decimal import Decimal, InvalidOperation, ROUND_HALF_UP
 import time  
 
 # Crear la ventana principal
@@ -200,7 +201,7 @@ def generar_pdf():
     pdf.set_auto_page_break(auto=True, margin=15)
     pdf.add_page()
     pdf.set_font("Arial", "B", 16)
-    pdf.cell(200, 10, "PRIMER TORNEO ORGULLO PEÑONERO", ln=True, align="C")
+    pdf.cell(200, 10, "PRIMER TORNEO LA CALERA", ln=True, align="C")
     pdf.set_font("Arial", "B", 12)
     pdf.cell(200, 10, "Información de la Cuerda", ln=True, align="L")
     pdf.cell(200, 10, f"Cuerda: {cuerda_seleccionada}", ln=True, align="L")
@@ -210,7 +211,7 @@ def generar_pdf():
         if not primer_frente:
             pdf.add_page()
             pdf.set_font("Arial", "B", 16)
-            pdf.cell(200, 10, "PRIMER TORNEO ORGULLO PEÑONERO", ln=True, align="C")
+            pdf.cell(200, 10, "PRIMER TORNEO LA CALERA", ln=True, align="C")
             pdf.set_font("Arial", "B", 12)
             pdf.cell(200, 10, "Información de la Cuerda", ln=True, align="L")
             pdf.cell(200, 10, f"Cuerda: {cuerda_seleccionada}", ln=True, align="L")
@@ -362,7 +363,7 @@ def realizar_sorteo():
             'anillo': gallo['anillo'],
             'placa': gallo['placa'],
             'color': gallo['color'],
-            'peso_int': int(gallo['peso'] * 10),
+            'peso_int': parse_peso_to_int(gallo['peso'], factor=10),
             'peso': gallo['peso'],
             'ciudad': gallo['ciudad'],
             'tipo': gallo['tipo']  
@@ -819,6 +820,27 @@ def rellenar_campos(event):
 
 tabla.bind("<<TreeviewSelect>>", rellenar_campos)
 
+def parse_peso_to_int(value, factor=10):
+    """
+    Convierte 'value' (str/float/int) a entero escalado.
+    factor=10  -> décimas (0.1)
+    factor=100 -> centésimas (0.01)
+    """
+    if value is None:
+        return 0
+    s = str(value).strip().replace(',', '.')  # unifica decimal
+    # si hay varios '.', deja solo el último como decimal
+    if s.count('.') > 1:
+        head, _, tail = s.rpartition('.')
+        s = head.replace('.', '') + '.' + tail
+    try:
+        d = Decimal(s)
+    except InvalidOperation:
+        return 0
+    return int((d * Decimal(factor)).quantize(Decimal('1'), rounding=ROUND_HALF_UP))
+
 # Iniciar el bucle principal de la interfaz
 actualizar_tabla()
 root.mainloop()
+
+

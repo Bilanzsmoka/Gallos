@@ -252,7 +252,7 @@ class AppGallos:
         pdf.set_auto_page_break(auto=True, margin=15)
         pdf.add_page()
         pdf.set_font("Arial", "B", 16)
-        pdf.cell(200, 10, "PRIMER TORNEO ORGULLO PEÑONERO", ln=True, align="C")
+        pdf.cell(200, 10, "PRIMER TORNEO  LA CALERA", ln=True, align="C")
         pdf.set_font("Arial", "B", 12)
         pdf.cell(200, 10, "Información de la Cuerda", ln=True, align="L")
         pdf.cell(200, 10, f"Cuerda: {cuerda_seleccionada}", ln=True, align="L")
@@ -262,7 +262,7 @@ class AppGallos:
             if not primer_frente:
                 pdf.add_page()
                 pdf.set_font("Arial", "B", 16)
-                pdf.cell(200, 10, "PRIMER TORNEO ORGULLO PEÑONERO", ln=True, align="C")
+                pdf.cell(200, 10, "PRIMER TORNEO LA CALERA", ln=True, align="C")
                 pdf.set_font("Arial", "B", 12)
                 pdf.cell(200, 10, "Información de la Cuerda", ln=True, align="L")
                 pdf.cell(200, 10, f"Cuerda: {cuerda_seleccionada}", ln=True, align="L")
