@@ -262,6 +262,7 @@ class TorneoView:
         self.boton_azul_gana.config(state=tk.DISABLED)
         self.boton_tabla.config(state=tk.DISABLED)
         self.boton_siguiente_pelea.config(state=tk.NORMAL)
+        self.detener_reloj()
         self.mostrar_resultados()
 
     def mostrar_resultados(self):
@@ -395,19 +396,39 @@ class TorneoView:
                     stats["puntos"] += 2
                 else:
                     stats["perdidas"] += 1
-
+                    
     def actualizar_tabla_posiciones(self):
+        # Limpiar tabla
         for row in self.tabla_acumulada.get_children():
             self.tabla_acumulada.delete(row)
 
-        ordenados = sorted(self.estadisticas_por_frente.items(), key=lambda x: x[1]["puntos"], reverse=True)
+        # Orden: menor tiempo ↑, mayor puntos ↓ (y como 3er criterio, más ganadas ↓)
+        ordenados = sorted(
+            self.estadisticas_por_frente.items(),
+            key=lambda kv: (
+                -kv[1]["puntos"],          # 1) mayor puntos primero
+                kv[1]["tiempo_total"],     # 2) menor tiempo
+                -kv[1].get("ganadas", 0)   # 3) opcional: más ganadas primero
+            )
+        )
 
+        # Insertar filas ya ordenadas
         for i, ((cuerda, frente), stats) in enumerate(ordenados, start=1):
-            tiempo_str = f"{stats['tiempo_total'] // 60}:{stats['tiempo_total'] % 60:02d}"
-            self.tabla_acumulada.insert("", "end", values=(
-                i, cuerda, frente, stats["puntos"], stats["ganadas"],
-                stats["empatadas"], stats["perdidas"], tiempo_str
-            ))
+            tiempo_str = f"{stats['tiempo_total'] // 60:02d}:{stats['tiempo_total'] % 60:02d}"
+            self.tabla_acumulada.insert(
+                "", "end",
+                values=(
+                    i,                         # Puesto
+                    cuerda,
+                    frente,
+                    stats["puntos"],
+                    stats["ganadas"],
+                    stats["empatadas"],
+                    stats["perdidas"],
+                    tiempo_str
+                )
+            )
+
 
     def generar_pdf_posiciones(self):
         pdf = FPDF(orientation='P', unit='mm', format='A4')

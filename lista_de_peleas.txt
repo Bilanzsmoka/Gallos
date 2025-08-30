@@ -1,0 +1,2 @@
+4,Peñoneros,1,A004,P004,colorado,3.04,Bogotá,Gallo|5,El Reinado,2,A005,P005,rojo,3.05,Tunja,Gallo
+6,Los Titanes,1,A006,P006,giro,3.06,Duitama,Gallo|7,Guerreros del Sur,2,A007,P007,cenizo,3.07,Sogamoso,Gallo
